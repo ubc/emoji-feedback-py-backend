@@ -1,0 +1,22 @@
+language: python
+python:
+  - 3.4
+  - 3.6
+
+jobs:
+  fast_finish: true
+
+install:
+  - pip install -U pip wheel
+  - pip install codecov
+  - pip install -e .
+script:
+  - python setup.py nosetests
+after_success:
+  - codecov
+
+branches:
+  only:
+    - master
+    # tags
+    - /^v\d+(\.\d+)*$/

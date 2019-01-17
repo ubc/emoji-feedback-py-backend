@@ -1,0 +1,19 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+      # for development testing (comment out to test the build package locally)
+      - ./src/emoji_feedback:/code/emoji_feedback
+      - ./example/server.py:/code/server.py
+    environment:
+      - EMOJI_FEEDBACK_CALIPER_HOST=http://pastbin/post
+      - EMOJI_FEEDBACK_CALIPER_API_KEY=940a48cc-be29-4a48-842d-fe83da531744
+    ports:
+      - "5000:5000"
+  pastbin:
+    image: kennethreitz/httpbin
+    ports:
+      - "5001:80"
+
+
