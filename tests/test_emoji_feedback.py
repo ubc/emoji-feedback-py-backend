@@ -15,7 +15,7 @@ class TestEmojiFeedback(unittest.TestCase):
             debug=False
         )
 
-        self.feedback_context = 'http://purl.imsglobal.org/ctx/caliper/v1p1/FeedbackProfile-extension'
+        self.feedback_context = 'http://purl.imsglobal.org/ctx/caliper/v1p2'
 
         self.eventTime = datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
@@ -128,6 +128,8 @@ class TestEmojiFeedback(unittest.TestCase):
         )
 
         # convert to dict
+        self.assertIsNotNone(event.get('id'))
+        del event['id']
         self.assertIsNotNone(event.get('generated'))
         self.assertIsNotNone(event['generated'].get('id'))
         del event['generated']['id']
@@ -136,6 +138,7 @@ class TestEmojiFeedback(unittest.TestCase):
             '@context': self.feedback_context,
             'type': 'FeedbackEvent',
             'action': 'Ranked',
+            'profile': 'FeedbackProfile',
             'actor': self.actor,
             'object': self.object,
             'generated': self.rating,
@@ -153,6 +156,8 @@ class TestEmojiFeedback(unittest.TestCase):
         )
 
         # convert to dict
+        self.assertIsNotNone(event.get('id'))
+        del event['id']
         self.assertIsNotNone(event.get('generated'))
         self.assertIsNotNone(event['generated'].get('id'))
         del event['generated']['id']
@@ -166,6 +171,7 @@ class TestEmojiFeedback(unittest.TestCase):
             '@context': self.feedback_context,
             'type': 'FeedbackEvent',
             'action': 'Ranked',
+            'profile': 'FeedbackProfile',
             'actor': {
                 'id': 'http://purl.imsglobal.org/caliper/Person',
                 'type': 'Person'
@@ -202,6 +208,8 @@ class TestEmojiFeedback(unittest.TestCase):
                 selections=self.selections
             )
 
+            self.assertIsNotNone(self.sent_caliper_event.get('id'))
+            del self.sent_caliper_event['id']
             self.assertIsNotNone(self.sent_caliper_event.get('generated'))
             self.assertIsNotNone(self.sent_caliper_event['generated'].get('id'))
             del self.sent_caliper_event['generated']['id']
@@ -210,6 +218,7 @@ class TestEmojiFeedback(unittest.TestCase):
                 '@context': self.feedback_context,
                 'type': 'FeedbackEvent',
                 'action': 'Ranked',
+                'profile': 'FeedbackProfile',
                 'actor': self.actor,
                 'object': self.object,
                 'generated': self.rating,
@@ -232,6 +241,8 @@ class TestEmojiFeedback(unittest.TestCase):
         )
 
         # convert to dict
+        self.assertIsNotNone(event.get('id'))
+        del event['id']
         self.assertIsNotNone(event.get('generated'))
         self.assertIsNotNone(event['generated'].get('id'))
         del event['generated']['id']
@@ -240,6 +251,7 @@ class TestEmojiFeedback(unittest.TestCase):
             '@context': self.feedback_context,
             'type': 'FeedbackEvent',
             'action': 'Commented',
+            'profile': 'FeedbackProfile',
             'actor': self.actor,
             'object': self.object,
             'generated': self.comment,
@@ -257,6 +269,8 @@ class TestEmojiFeedback(unittest.TestCase):
         )
 
         # convert to dict
+        self.assertIsNotNone(event.get('id'))
+        del event['id']
         self.assertIsNotNone(event.get('generated'))
         self.assertIsNotNone(event['generated'].get('id'))
         del event['generated']['id']
@@ -270,6 +284,7 @@ class TestEmojiFeedback(unittest.TestCase):
             '@context': self.feedback_context,
             'type': 'FeedbackEvent',
             'action': 'Commented',
+            'profile': 'FeedbackProfile',
             'actor': {
                 'id': 'http://purl.imsglobal.org/caliper/Person',
                 'type': 'Person'
@@ -306,6 +321,8 @@ class TestEmojiFeedback(unittest.TestCase):
                 commentText=self.commentText
             )
 
+            self.assertIsNotNone(self.sent_caliper_event.get('id'))
+            del self.sent_caliper_event['id']
             self.assertIsNotNone(self.sent_caliper_event.get('generated'))
             self.assertIsNotNone(self.sent_caliper_event['generated'].get('id'))
             del self.sent_caliper_event['generated']['id']
@@ -314,6 +331,7 @@ class TestEmojiFeedback(unittest.TestCase):
                 '@context': self.feedback_context,
                 'type': 'FeedbackEvent',
                 'action': 'Commented',
+                'profile': 'FeedbackProfile',
                 'actor': self.actor,
                 'object': self.object,
                 'generated': self.comment,
@@ -343,6 +361,7 @@ class TestEmojiFeedback(unittest.TestCase):
                 '@context': self.feedback_context,
                 'type': 'FeedbackEvent',
                 'action': 'Commented',
+                'profile': 'FeedbackProfile',
                 'actor': self.actor,
                 'object': self.object,
                 'generated': self.comment,
@@ -385,6 +404,6 @@ class TestEmojiFeedback(unittest.TestCase):
 
             self.assertEqual(self.sent_evelope, {
                 'sensor': 'https://emojifeedback.learninganalytics.ubc.ca/',
-                'dataVersion': 'http://purl.imsglobal.org/ctx/caliper/v1p1',
+                'dataVersion': 'http://purl.imsglobal.org/ctx/caliper/v1p2',
                 'data': [ event ]
             })

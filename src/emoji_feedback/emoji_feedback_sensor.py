@@ -20,7 +20,7 @@ ANONYMOUS_SESSION = {
 
 class EmojiFeedbackSensor(object):
     SENSOR_ID = "https://emojifeedback.learninganalytics.ubc.ca/"
-    CALIPER_VERSION = "http://purl.imsglobal.org/ctx/caliper/v1p1"
+    CALIPER_VERSION = "http://purl.imsglobal.org/ctx/caliper/v1p2"
 
     def __init__(self, caliper_host=None, caliper_api_key=None, debug=False):
         self.caliper_host = caliper_host if caliper_host else environ.get('EMOJI_FEEDBACK_CALIPER_HOST', None)
@@ -40,10 +40,12 @@ class EmojiFeedbackSensor(object):
             'dateCreated': eventTime
         }
         event = {
-            '@context': 'http://purl.imsglobal.org/ctx/caliper/v1p1/FeedbackProfile-extension',
+            'id': 'urn:uuid:' + str(uuid.uuid4()),
+            '@context': 'http://purl.imsglobal.org/ctx/caliper/v1p2',
             'type': 'FeedbackEvent',
             'actor': actor,
             'action': 'Ranked',
+            'profile': 'FeedbackProfile',
             'object': object,
             'edApp': edApp,
             'session': session,
@@ -76,10 +78,12 @@ class EmojiFeedbackSensor(object):
             }
         }
         event = {
-            '@context': 'http://purl.imsglobal.org/ctx/caliper/v1p1/FeedbackProfile-extension',
+            'id': 'urn:uuid:' + str(uuid.uuid4()),
+            '@context': 'http://purl.imsglobal.org/ctx/caliper/v1p2',
             'type': 'FeedbackEvent',
             'actor': actor,
             'action': 'Commented',
+            'profile': 'FeedbackProfile',
             'object': object,
             'edApp': edApp,
             'session': session,
